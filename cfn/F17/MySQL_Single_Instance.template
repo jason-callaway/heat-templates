@@ -117,7 +117,7 @@
           "}\n",
 
           "/opt/aws/bin/cfn-init -s ", { "Ref" : "AWS::StackName" },
-          " -r MySqlDatabaseServer ",
+          " -r mysqldb ",
           " --region ", { "Ref" : "AWS::Region" },
           " || error_exit 'Failed to run cfn-init'\n",
 
@@ -143,7 +143,7 @@
 
     "MySqlWaitCondition" : {
       "Type" : "AWS::CloudFormation::WaitCondition",
-      "DependsOn" : "MySqlDatabaseServer",
+      "DependsOn" : "mysqldb",
       "Properties" : {
         "Handle" : {"Ref" : "MySqlWaitHandle"},
         "Timeout" : "600"
@@ -154,7 +154,7 @@
 
   "Outputs" : {
     "PublicIp": {
-      "Value": { "Fn::GetAtt" : [ "MySqlDatabaseServer", "PublicIp" ] },
+      "Value": { "Fn::GetAtt" : [ "mysqldb", "PublicIp" ] },
       "Description": "Database server IP"
     }
   }
